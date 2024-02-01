@@ -1,0 +1,1 @@
+Configuration of GNU Emacs that emphasise built-in packages and utilize the Customize interface.
