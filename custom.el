@@ -4,11 +4,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
+ '(calendar-week-start-day 1)
  '(column-number-mode t)
+ '(completions-detailed t)
  '(create-lockfiles nil)
  '(custom-enabled-themes '(modus-vivendi-tritanopia))
  '(delete-selection-mode t)
  '(dired-listing-switches "-alth")
+ '(eshell-modules-list
+   '(eshell-alias eshell-banner eshell-basic eshell-cmpl eshell-dirs
+		  eshell-extpipe eshell-glob eshell-hist eshell-ls
+		  eshell-pred eshell-prompt eshell-rebind
+		  eshell-script eshell-term eshell-tramp eshell-unix))
  '(fido-vertical-mode t)
  '(global-hl-line-mode t)
  '(inhibit-startup-screen t)
@@ -22,6 +29,8 @@
  '(save-place-mode t)
  '(savehist-mode t)
  '(scroll-bar-mode nil)
+ '(switch-to-buffer-in-dedicated-window 'pop)
+ '(switch-to-buffer-obey-display-actions t)
  '(tool-bar-mode nil)
  '(use-short-answers t)
  '(visible-bell t)
