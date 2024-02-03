@@ -26,7 +26,7 @@
 (add-to-list 'package-selected-packages 'yasnippet)
 (package-install-selected-packages :noconfirm)
 
-;; Calendar and diary
+;;; Calendar and diary
 
 (setopt diary-file "~/Nextcloud/gtd/diary")
 (when (boundp 'diary-file)
