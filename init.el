@@ -18,6 +18,8 @@
 (setopt initial-scratch-message
         (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you! ;; -*- lexical-binding: t -*-\n\n"))
 
+;;; Packages
+
 (add-to-list 'package-selected-packages 'ace-window)
 (add-to-list 'package-selected-packages 'company)
 (add-to-list 'package-selected-packages 'nov)
@@ -26,9 +28,27 @@
 (add-to-list 'package-selected-packages 'yasnippet)
 (package-install-selected-packages :noconfirm)
 
+;;; WSL-specific
+
+(if (and (eq system-type 'gnu/linux)
+         (getenv "WSLENV"))
+    (progn
+      ;; Teach Emacs how to open links in your default Windows browser
+      ;; https://emacsredux.com/blog/2021/12/19/wsl-specific-emacs-configuration/
+      (let ((cmd-exe "/mnt/c/Windows/System32/cmd.exe")
+            (cmd-args '("/c" "start")))
+	(when (file-exists-p cmd-exe)
+	  (setopt browse-url-generic-program  cmd-exe
+		  browse-url-generic-args     cmd-args
+		  browse-url-browser-function 'browse-url-generic
+		  search-web-default-browser 'browse-url-generic)))
+      
+      (setopt diary-file "~/Org/diary"))
+  (progn
+    (setopt diary-file "~/Nextcloud/gtd/diary")))
+
 ;;; Calendar and diary
 
-(setopt diary-file "~/Nextcloud/gtd/diary")
 (when (boundp 'diary-file)
   (unless (file-exists-p diary-file)
     (write-region "" nil diary-file)))
@@ -74,27 +94,6 @@
 (add-hook 'nov-mode-hook 'olivetti-mode)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'flymake-mode)
-
-;;; WSL-specific
-
-(when (and (eq system-type 'gnu/linux)
-           (getenv "WSLENV"))
-
-  ;; Teach Emacs how to open links in your default Windows browser
-  ;; https://emacsredux.com/blog/2021/12/19/wsl-specific-emacs-configuration/
-  (let ((cmd-exe "/mnt/c/Windows/System32/cmd.exe")
-        (cmd-args '("/c" "start")))
-    (when (file-exists-p cmd-exe)
-      (setopt browse-url-generic-program  cmd-exe
-              browse-url-generic-args     cmd-args
-              browse-url-browser-function 'browse-url-generic
-              search-web-default-browser 'browse-url-generic)))
-
-  (setopt diary-file "~/Org/diary")
-  (when (boundp 'diary-file)
-    (unless (file-exists-p diary-file)
-      (write-region "" nil diary-file)))
-  (diary))
 
 (provide 'init)
 ;;; init.el ends here
