@@ -16,7 +16,7 @@
   (load custom-file nil 'nomessage))
 
 (setopt initial-scratch-message
-        (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
+        (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you! ;; -*- lexical-binding: t -*-\n\n"))
 
 (add-to-list 'package-selected-packages 'ace-window)
 (add-to-list 'package-selected-packages 'company)
