@@ -15,8 +15,6 @@
            (file-exists-p custom-file))
   (load custom-file nil 'nomessage))
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 (setopt initial-scratch-message
         (concat ";; Happy hacking, " user-login-name " - Emacs ♥ you!\n\n"))
 
@@ -51,6 +49,7 @@
 	(insert input)))))
 
 ;;; Nov
+
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
 ;;; Key Bindings
@@ -76,7 +75,7 @@
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'flymake-mode)
 
-;;; WSL
+;;; WSL-specific
 
 (when (and (eq system-type 'gnu/linux)
            (getenv "WSLENV"))

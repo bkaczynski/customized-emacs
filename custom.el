@@ -9,6 +9,9 @@
  '(completions-detailed t)
  '(create-lockfiles nil)
  '(custom-enabled-themes '(modus-vivendi-tritanopia))
+ '(default-frame-alist
+   '((fullscreen . maximized) (font . "Cascadia Code 10")
+     (vertical-scroll-bars)))
  '(delete-selection-mode t)
  '(dired-listing-switches "-alth")
  '(eshell-modules-list
