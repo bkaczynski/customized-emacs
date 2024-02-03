@@ -22,6 +22,8 @@
 
 (add-to-list 'package-selected-packages 'ace-window)
 (add-to-list 'package-selected-packages 'company)
+(add-to-list 'package-selected-packages 'nov)
+(add-to-list 'package-selected-packages 'olivetti)
 (add-to-list 'package-selected-packages 'which-key)
 (add-to-list 'package-selected-packages 'yasnippet)
 (package-install-selected-packages :noconfirm)
@@ -48,6 +50,9 @@
 	(eshell-emit-prompt)
 	(insert input)))))
 
+;;; Nov
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+
 ;;; Key Bindings
 
 (global-set-key (kbd "C-c f") 'recentf-open-files)
@@ -65,9 +70,11 @@
 
 ;;; Hooks
 
+(add-hook 'eshell-mode-hook 'eshell-init-keys)
+(add-hook 'nov-mode-hook (lambda () (set-fill-column 115)))
+(add-hook 'nov-mode-hook 'olivetti-mode)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'flymake-mode)
-(add-hook 'eshell-mode-hook 'eshell-init-keys)
 
 ;;; WSL
 

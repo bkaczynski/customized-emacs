@@ -23,6 +23,7 @@
  '(make-backup-files nil)
  '(menu-bar-mode nil)
  '(native-comp-async-report-warnings-errors nil)
+ '(nov-text-width 0)
  '(package-selected-packages nil)
  '(recentf-mode t)
  '(require-final-newline t)
