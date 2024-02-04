@@ -43,7 +43,7 @@
 		  browse-url-browser-function 'browse-url-generic
 		  search-web-default-browser 'browse-url-generic)))
       
-      (setopt diary-file "~/Org/diary"))
+      (setopt diary-file "/mnt/c/Users/kaczynskib/Org/diary"))
   (progn
     (setopt diary-file "~/Nextcloud/gtd/diary")))
 
