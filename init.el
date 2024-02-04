@@ -22,6 +22,7 @@
 
 (add-to-list 'package-selected-packages 'ace-window)
 (add-to-list 'package-selected-packages 'company)
+(add-to-list 'package-selected-packages 'markdown-mode)
 (add-to-list 'package-selected-packages 'nov)
 (add-to-list 'package-selected-packages 'olivetti)
 (add-to-list 'package-selected-packages 'which-key)
@@ -74,8 +75,11 @@
 
 ;;; Key Bindings
 
-(global-set-key (kbd "C-c f") 'recentf-open-files)
 (global-set-key (kbd "M-o") 'ace-window)
+(global-set-key (kbd "C-c f") 'recentf-open-files)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c l") 'org-store-link)
 
 (defun eshell-init-keys ()
   "Initialize key bindings for Eshell."

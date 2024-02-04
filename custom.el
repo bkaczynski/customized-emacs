@@ -37,6 +37,10 @@
  '(mm-text-html-renderer 'gnus-w3m)
  '(native-comp-async-report-warnings-errors nil)
  '(nov-text-width 0)
+ '(org-export-backends '(ascii html icalendar latex md odt))
+ '(org-hide-emphasis-markers t)
+ '(org-log-done 'time)
+ '(org-support-shift-select 'always)
  '(package-selected-packages nil)
  '(recentf-mode t)
  '(require-final-newline t)
@@ -47,6 +51,7 @@
  '(switch-to-buffer-obey-display-actions t)
  '(tool-bar-mode nil)
  '(use-short-answers t)
+ '(user-full-name "Bartosz Kaczyński")
  '(visible-bell t)
  '(which-key-mode t))
 (custom-set-faces
