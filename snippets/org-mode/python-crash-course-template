@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: python-crash-course-template
+# key: <pcc
+# --
+#+begin_src python :tangle ./python_work/ch$1/${2:script-name}.py
+$0
+#+end_src
