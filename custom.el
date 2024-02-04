@@ -9,6 +9,8 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
  '(blink-cursor-mode nil)
+ '(calendar-date-style 'european)
+ '(calendar-mark-diary-entries-flag t)
  '(calendar-week-start-day 1)
  '(column-number-mode t)
  '(completion-auto-help 'always)

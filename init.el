@@ -53,6 +53,12 @@
 (when (boundp 'diary-file)
   (unless (file-exists-p diary-file)
     (write-region "" nil diary-file)))
+
+(setopt diary-date-forms '((day "/" month "[^/0-9]") (day "/" month "/" year "[^0-9]")
+			  (backup day " *" monthname
+				  "\\W+\\<\\([^*0-9]\\|\\([0-9]+[:aApP]\\)\\)")
+			  (day " *" monthname " *" year "[^0-9:aApP]") (dayname "\\W")))
+
 (diary)
 
 ;;; Eshell
