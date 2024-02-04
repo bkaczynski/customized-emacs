@@ -92,6 +92,15 @@
 
 ;;; Org
 
+(defun org-mode-setup ()
+  "Set up a buffer for org mode."
+  (progn
+    (setq fill-column 115)
+    (visual-line-mode)
+    (flyspell-mode)
+    (when (fboundp 'olivetti-mode)
+      (olivetti-mode 1))))
+
 ;; Babel
 
 (eval-when-compile
@@ -120,6 +129,24 @@
   (when (boundp 'inferior-python-mode-map)
     (define-key inferior-python-mode-map "\C-l" 'comint-clear-buffer)))
 
+;;; Tramp
+(connection-local-set-profile-variables
+ 'remote-without-auth-sources '((auth-sources . nil)))
+
+(connection-local-set-profiles
+ '(:application tramp) 'remote-without-auth-sources)
+
+(setopt tramp-default-remote-shell "/bin/bash"
+	tramp-completion-reread-directory-timeout nil)
+
+;;; VC
+
+;; Disable version control in Tramp
+(setq vc-ignore-dir-regexp
+      (format "\\(%s\\)\\|\\(%s\\)"
+              vc-ignore-dir-regexp
+              tramp-file-name-regexp))
+
 ;;; Key Bindings
 
 (global-set-key (kbd "M-o") 'ace-window)
@@ -140,6 +167,7 @@
 (add-hook 'inferior-python-mode-hook 'clear-inferior-python-mode)
 (add-hook 'nov-mode-hook 'epub-reading-hook)
 (add-hook 'org-capture-mode-hook 'delete-other-windows)
+(add-hook 'org-mode-hook 'org-mode-setup)
 (add-hook 'org-src-mode-hook 'org-src-init-keys)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'flymake-mode)
