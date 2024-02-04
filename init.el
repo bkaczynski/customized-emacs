@@ -75,9 +75,50 @@
 	(eshell-emit-prompt)
 	(insert input)))))
 
+(defun eshell-init-keys ()
+  "Initialize key bindings for Eshell."
+  (when (boundp 'eshell-mode-map)
+    (define-key eshell-mode-map (kbd "C-l") 'eshell-clear)))
+
 ;;; Nov
 
+(defun epub-reading-hook ()
+  "Set up a buffer for epub reading."
+  (setq fill-column 115)
+  (when (fboundp 'olivetti-mode)
+    (olivetti-mode 1)))
+
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+
+;;; Org
+
+;; Babel
+
+(eval-when-compile
+  (unless (fboundp 'org-edit-src-exit)
+    (defun org-babel-tangle-from-edit-special ()
+      "Tangle single source code block from separate buffer."
+      (interactive)
+      (org-edit-src-exit)
+      (let ((current-prefix-arg '(4)))
+        (call-interactively 'org-babel-tangle))
+      (org-edit-special))))
+
+(defun org-src-init-keys ()
+  "Initialize key bindings for Org source code block."
+  (when (boundp 'org-src-mode-map)
+    (define-key org-src-mode-map (kbd "C-c t") 'org-babel-tangle-from-edit-special)))
+
+(when (boundp 'org-babel-default-header-args)
+  (add-to-list 'org-babel-default-header-args '(:results . "output"))
+  (add-to-list 'org-babel-default-header-args '(:mkdirp . "yes")))
+
+;;; Python
+
+(defun clear-inferior-python-mode ()
+  "Clear buffer in Python REPL."
+  (when (boundp 'inferior-python-mode-map)
+    (define-key inferior-python-mode-map "\C-l" 'comint-clear-buffer)))
 
 ;;; Key Bindings
 
@@ -87,11 +128,6 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c l") 'org-store-link)
 
-(defun eshell-init-keys ()
-  "Initialize key bindings for Eshell."
-  (when (boundp 'eshell-mode-map)
-    (define-key eshell-mode-map (kbd "C-l") 'eshell-clear)))
-
 (when (boundp 'icomplete-minibuffer-map)
   (define-key icomplete-minibuffer-map (kbd "<tab>") 'icomplete-force-complete)
   (define-key icomplete-minibuffer-map (kbd "C-j") 'minibuffer-complete)
@@ -99,9 +135,12 @@
 
 ;;; Hooks
 
+(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 (add-hook 'eshell-mode-hook 'eshell-init-keys)
-(add-hook 'nov-mode-hook (lambda () (set-fill-column 115)))
-(add-hook 'nov-mode-hook 'olivetti-mode)
+(add-hook 'inferior-python-mode-hook 'clear-inferior-python-mode)
+(add-hook 'nov-mode-hook 'epub-reading-hook)
+(add-hook 'org-capture-mode-hook 'delete-other-windows)
+(add-hook 'org-src-mode-hook 'org-src-init-keys)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (add-hook 'prog-mode-hook 'flymake-mode)
 

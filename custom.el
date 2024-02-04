@@ -23,6 +23,7 @@
  '(default-frame-alist '((fullscreen . maximized) (font . "Cascadia Code 10")))
  '(delete-selection-mode t)
  '(dired-listing-switches "-alth")
+ '(display-fill-column-indicator-character 9482)
  '(enable-recursive-minibuffers t)
  '(eshell-modules-list
    '(eshell-alias eshell-banner eshell-basic eshell-cmpl eshell-dirs
@@ -47,9 +48,17 @@
  '(mm-text-html-renderer 'gnus-w3m)
  '(native-comp-async-report-warnings-errors nil)
  '(nov-text-width 0)
+ '(org-babel-load-languages
+   '((shell . t) (python . t) (plantuml . t) (C . t) (emacs-lisp . t)))
+ '(org-babel-python-command "python3")
+ '(org-confirm-babel-evaluate nil)
+ '(org-edit-src-content-indentation 0)
  '(org-export-backends '(ascii html icalendar latex md odt))
+ '(org-export-use-babel nil)
+ '(org-export-with-sub-superscripts nil)
  '(org-hide-emphasis-markers t)
  '(org-log-done 'time)
+ '(org-src-window-setup 'current-window)
  '(org-support-shift-select 'always)
  '(package-selected-packages nil)
  '(pixel-scroll-precision-mode t)
