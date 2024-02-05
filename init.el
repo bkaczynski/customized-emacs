@@ -21,11 +21,14 @@
 ;;; Packages
 
 (add-to-list 'package-selected-packages 'ace-window)
+(add-to-list 'package-selected-packages 'chatgpt-shell)
 (add-to-list 'package-selected-packages 'company)
 (add-to-list 'package-selected-packages 'markdown-mode)
+(add-to-list 'package-selected-packages 'multiple-cursors)
 (add-to-list 'package-selected-packages 'nov)
 (add-to-list 'package-selected-packages 'olivetti)
 (add-to-list 'package-selected-packages 'which-key)
+(add-to-list 'package-selected-packages 'yaml-mode)
 (add-to-list 'package-selected-packages 'yasnippet)
 (package-install-selected-packages :noconfirm)
 
@@ -43,11 +46,14 @@
 		  browse-url-generic-args     cmd-args
 		  browse-url-browser-function 'browse-url-generic
 		  search-web-default-browser 'browse-url-generic)))
-      
-      (setopt diary-file "/mnt/c/Users/kaczynskib/Org/diary")
-      (setopt org-file-apps '(("\\.xlsx\\'" . "cmd.exe /c start excel \"%s\""))))
+
+      (setq default-directory "/mnt/c/Users/kaczynskib/")
+      (setopt diary-file "/mnt/c/Users/kaczynskib/Org/diary"))
   (progn
     (setopt diary-file "~/Nextcloud/gtd/diary")))
+
+;;; auth-source
+(auth-source-pass-enable)
 
 ;;; Calendar and diary
 
@@ -61,6 +67,14 @@
 			  (day " *" monthname " *" year "[^0-9:aApP]") (dayname "\\W")))
 
 (diary)
+
+;;; ChatGPT
+(setopt	shell-maker-prompt-before-killing-buffer nil
+	chatgpt-shell-model-versions
+	'("gpt-3.5-turbo-16k-0613" "gpt-3.5-turbo-16k" "gpt-3.5-turbo-0613" "gpt-3.5-turbo")
+	chatgpt-shell-openai-key
+	(lambda ()
+          (auth-source-pass-get 'secret "openai-key")))
 
 ;;; Eshell
 
@@ -148,9 +162,15 @@
               vc-ignore-dir-regexp
               tramp-file-name-regexp))
 
+;;; Yaml-mode
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
 ;;; Key Bindings
 
 (global-set-key (kbd "M-o") 'ace-window)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c f") 'recentf-open-files)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
