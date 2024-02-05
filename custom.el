@@ -38,6 +38,10 @@
  '(gnus-inhibit-startup-message t)
  '(gnus-interactive-exit nil)
  '(gnus-large-newsgroup nil)
+ '(gnus-secondary-select-methods
+   '((nnimap "bkaczynski@posteo.de" (nnmap-address "posteo.de")
+	     (nnimap-user "bkkaczynski@posteo.net")
+	     (nnimap-server-port "imaps") (nnimap-stream ssl))))
  '(gnus-select-method '(nnnil ""))
  '(gnus-use-full-window nil)
  '(indicate-buffer-boundaries t)
@@ -82,7 +86,8 @@
  '(use-short-answers t)
  '(user-full-name "Bartosz Kaczyński")
  '(visible-bell t)
- '(which-key-mode t))
+ '(which-key-mode t)
+ '(yas-global-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
