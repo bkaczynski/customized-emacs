@@ -44,7 +44,8 @@
 		  browse-url-browser-function 'browse-url-generic
 		  search-web-default-browser 'browse-url-generic)))
       
-      (setopt diary-file "/mnt/c/Users/kaczynskib/Org/diary"))
+      (setopt diary-file "/mnt/c/Users/kaczynskib/Org/diary")
+      (setopt org-file-apps '(("\\.xlsx\\'" . "cmd.exe /c start excel \"%s\""))))
   (progn
     (setopt diary-file "~/Nextcloud/gtd/diary")))
 
