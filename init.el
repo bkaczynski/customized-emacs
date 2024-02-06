@@ -53,19 +53,18 @@
       (defun linux-to-windows-path (linux-path)
 	"Converts a Linux path to a Windows path."
 	(let ((cmd (format "wslpath -w %s" (shell-quote-argument linux-path))))
-	  (substring (shell-command-to-string cmd) 0 -1)))
+	  (string-trim-right (shell-command-to-string cmd))))
 
       ;; TODO write a generic function to open files from org buffer using windows apps
-      ;; (defun windows-app (program path)
-      ;; 	"Create a lambda function to run a Windows program with the given program name and file path."
-      ;; 	(lambda (file link)
-      ;; 	  (let ((windows-path (linux-to-windows-path path)))
-      ;; 	    (start-process program nil program windows-path))))
-      ;; (setopt org-file-apps '(("\\.xlsx\\'" . (windows-app "EXCEL.EXE" /"%s/")))))
-
-      (setopt org-file-apps '(("\\.xlsx\\'" . (lambda (file link)
-                    (let ((path (linux-to-windows-path file)))
-                      (start-process "excel" nil "EXCEL.EXE" path)))))))
+      (defun windows-app (app-name file-path)
+	"Return function for opening a file with a Windows application."
+	(lambda (_file _link)
+	  (let ((cmd (format "%s \"%s\"" app-name file-path)))
+	    (call-process-shell-command cmd nil 0))))
+      
+      (setopt org-file-apps '(("\\.xlsx\\'"
+			     . (lambda (file link)
+				 (windows-app "EXCEL.exe" file))))))
   (progn
     (setopt diary-file "~/Nextcloud/gtd/diary")))
 
