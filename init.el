@@ -41,30 +41,30 @@
       ;; https://emacsredux.com/blog/2021/12/19/wsl-specific-emacs-configuration/
       (let ((cmd-exe "/mnt/c/Windows/System32/cmd.exe")
             (cmd-args '("/c" "start")))
-	(when (file-exists-p cmd-exe)
-	  (setopt browse-url-generic-program  cmd-exe
-		  browse-url-generic-args     cmd-args
-		  browse-url-browser-function 'browse-url-generic
-		  search-web-default-browser 'browse-url-generic)))
+	    (when (file-exists-p cmd-exe)
+	      (setopt browse-url-generic-program  cmd-exe
+		          browse-url-generic-args     cmd-args
+		          browse-url-browser-function 'browse-url-generic
+		          search-web-default-browser 'browse-url-generic)))
 
       (setq default-directory "/mnt/c/Users/kaczynskib/")
       (setopt diary-file "/mnt/c/Users/kaczynskib/Org/diary")
 
       (defun linux-to-windows-path (linux-path)
-	"Converts a Linux path to a Windows path."
-	(let ((cmd (format "wslpath -w %s" (shell-quote-argument linux-path))))
-	  (string-trim-right (shell-command-to-string cmd))))
+	    "Converts a Linux path to a Windows path."
+	    (let ((cmd (format "wslpath -w %s" (shell-quote-argument linux-path))))
+	      (string-trim-right (shell-command-to-string cmd))))
 
       ;; TODO write a generic function to open files from org buffer using windows apps
       (defun windows-app (app-name file-path)
-	"Return function for opening a file with a Windows application."
-	(lambda (_file _link)
-	  (let ((cmd (format "%s \"%s\"" app-name file-path)))
-	    (call-process-shell-command cmd nil 0))))
+	    "Return function for opening a file with a Windows application."
+	    (lambda (_file _link)
+	      (let ((cmd (format "%s \"%s\"" app-name file-path)))
+	        (call-process-shell-command cmd nil 0))))
       
       (setopt org-file-apps '(("\\.xlsx\\'"
-			     . (lambda (file link)
-				 (windows-app "EXCEL.exe" file))))))
+			                   . (lambda (file link)
+				                   (windows-app "EXCEL.exe" file))))))
   (progn
     (setopt diary-file "~/Nextcloud/gtd/diary")))
 
@@ -78,18 +78,18 @@
     (write-region "" nil diary-file)))
 
 (setopt diary-date-forms '((day "/" month "[^/0-9]") (day "/" month "/" year "[^0-9]")
-			  (backup day " *" monthname
-				  "\\W+\\<\\([^*0-9]\\|\\([0-9]+[:aApP]\\)\\)")
-			  (day " *" monthname " *" year "[^0-9:aApP]") (dayname "\\W")))
+			               (backup day " *" monthname
+				                   "\\W+\\<\\([^*0-9]\\|\\([0-9]+[:aApP]\\)\\)")
+			               (day " *" monthname " *" year "[^0-9:aApP]") (dayname "\\W")))
 
 (diary)
 
 ;;; ChatGPT
 (setopt	shell-maker-prompt-before-killing-buffer nil
-	chatgpt-shell-model-versions
-	'("gpt-3.5-turbo-16k-0613" "gpt-3.5-turbo-16k" "gpt-3.5-turbo-0613" "gpt-3.5-turbo")
-	chatgpt-shell-openai-key
-	(lambda ()
+	    chatgpt-shell-model-versions
+	    '("gpt-3.5-turbo-16k-0613" "gpt-3.5-turbo-16k" "gpt-3.5-turbo-0613" "gpt-3.5-turbo")
+	    chatgpt-shell-openai-key
+	    (lambda ()
           (auth-source-pass-get 'secret "openai-key")))
 
 ;;; Eshell
@@ -102,9 +102,9 @@
       "Clear Eshell buffer."
       (interactive)
       (let ((input (eshell-get-old-input)))
-	(eshell/clear t)
-	(eshell-emit-prompt)
-	(insert input)))))
+	    (eshell/clear t)
+	    (eshell-emit-prompt)
+	    (insert input)))))
 
 (defun eshell-init-keys ()
   "Initialize key bindings for Eshell."
@@ -168,7 +168,7 @@
  '(:application tramp) 'remote-without-auth-sources)
 
 (setopt tramp-default-remote-shell "/bin/bash"
-	tramp-completion-reread-directory-timeout nil)
+	    tramp-completion-reread-directory-timeout nil)
 
 ;;; VC
 
